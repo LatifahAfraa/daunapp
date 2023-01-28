@@ -59,8 +59,11 @@ class RegisterController extends Controller
         $id = toko::whereStatus(1)->first();
 
         return Validator::make($data, [
-            'nohp' => ['required', 'string', 'max:255',
-                 Rule::unique('otw_member')->where(function ($query) use($data, $id) { return $query->where('nohp', $data['nohp'])->where('id_toko', $id->id_toko); }),
+            'nohp' => [
+                'required', 'string', 'max:255',
+                Rule::unique('otw_member')->where(function ($query) use ($data, $id) {
+                    return $query->where('nohp', $data['nohp'])->where('id_toko', $id->id_toko);
+                }),
             ],
             'nama' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed']
@@ -77,11 +80,19 @@ class RegisterController extends Controller
     {
         $id = toko::whereStatus(1)->first();
 
+
         return member::create([
             'nohp' => $data['nohp'],
             'nama' => $data['nama'],
             'password' => Hash::make($data['password']),
-            'id_toko' => $id->id_toko
+            'id_toko' => $id->id_toko,
+            'id_jenis' => $data['id_jenis'],
+            'nama_warung'  => $data['nama_warung'],
+            'id_provinsi'  => $data['id_provinsi'],
+            'id_kota'  => $data['id_kota'],
+            'id_kecamatan'  => $data['id_kecamatan'],
+            'alamat'  => $data['alamat'],
+            'kode_agen' => $data['kode_agen']
         ]);
     }
 
@@ -89,11 +100,11 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $toko = toko::whereStatus(1)->first();
-        $provinsi = provinsi::where('name', 'LIKE', '%'.request('q').'%')->get();
-        $kota = kota::where('name', 'LIKE', '%'.request('q').'%')->get();
-        $kecamatan = kecamatan::where('name', 'LIKE', '%'.request('q').'%')->get();
+        $provinsi = provinsi::where('name', 'LIKE', '%' . request('q') . '%')->get();
+        $kota = kota::where('name', 'LIKE', '%' . request('q') . '%')->get();
+        $kecamatan = kecamatan::where('name', 'LIKE', '%' . request('q') . '%')->get();
         $title = "Daftar member baru";
         $jenis = jenis_member::all();
-        return view('customauth.register',compact('title','toko','jenis', 'provinsi', 'kota', 'kecamatan'));
+        return view('customauth.register', compact('title', 'toko', 'jenis', 'provinsi', 'kota', 'kecamatan'));
     }
 }

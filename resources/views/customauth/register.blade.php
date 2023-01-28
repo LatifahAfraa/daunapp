@@ -66,9 +66,9 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="jenis_id" class="col-md-12 col-form-label">Jenis Warung</label>
+                    <label for="id_jenis" class="col-md-12 col-form-label">Jenis Warung</label>
                     <div class="col-md-12">
-                        <select class="form-control" id="jenis_id" name="jenis_id" required autofocus>
+                        <select class="form-control" id="id_jenis" name="id_jenis" required autofocus>
                             @foreach ($jenis as $item)
                             <option value="{{ $item->id_jenis }}">{{ $item->nama_jenis }}</option>
                             @endforeach
