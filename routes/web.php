@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisterController;
+
 Route::middleware('checkToko')->group(function () {
     Route::get('/','IndexController@index')->name('index');
     Route::get('cari','IndexController@cari')->name('index.cari');
@@ -115,6 +118,7 @@ Route::prefix('tokoku')->namespace('AdminToko')->group(function (){
 	    Route::resource('rajaongkir', 'ROController');
 	});
 });
+
 
 Route::get('/config-clear', function() { $status = Artisan::call('config:clear'); return '<h1>Configurations cleared</h1>'; });
 Route::get('/cache-clear', function() { $status = Artisan::call('cache:clear'); return '<h1>Configurations cleared</h1>'; });

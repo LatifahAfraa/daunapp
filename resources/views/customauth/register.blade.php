@@ -98,9 +98,7 @@
                     <label for="id_kota" class="col-md-12 col-form-label">Kota</label>
                     <div class="col-md-12">
                         <select class="form-control" id="id_kota" name="id_kota" required autofocus>
-                            @foreach ($kota as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
+
                          </select>
                     </div>
                 </div>
@@ -109,9 +107,7 @@
                     <label for="id_kecamatan" class="col-md-12 col-form-label">Kecamatan</label>
                     <div class="col-md-12">
                         <select class="form-control" id="id_kecamatan" name="id_kecamatan" required autofocus>
-                            @foreach ($kecamatan as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
+
                          </select>
                     </div>
                 </div>

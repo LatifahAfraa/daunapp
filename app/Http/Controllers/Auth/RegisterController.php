@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\member;
+use App\kota;
 use App\toko;
 
-use App\Http\Controllers\Controller;
-use App\jenis_member;
-use App\kecamatan;
-use App\kota;
+use App\member;
 use App\provinsi;
+use App\kecamatan;
+use App\jenis_member;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Validation\Rule;
 
 
 class RegisterController extends Controller
@@ -96,15 +97,39 @@ class RegisterController extends Controller
         ]);
     }
 
+    public function kota()
+    {
+        $kota = kota::where('province_id', request('id_provinsi'))->where('name', 'LIKE', '%' . request('q') . '%')->get();
+
+        //map untuk array
+        return ["results" => $kota->map(function ($k) {
+            return [
+                'id' => $k->id,
+                'text' => $k->name
+            ];
+        }), "pagination" => ['more' => false]];
+    }
+
+    public function kecamatan()
+    {
+        $kecamatan = kecamatan::where('regency_id', request('id_kota'))->where('name', 'LIKE', '%' . request('q') . '%')->get();
+
+        return ["results" => $kecamatan->map(function($ke){
+            return [
+                'id' => $ke->id,
+                'text' =>$ke->name
+            ];
+        }), "pagination" => ['more' => false]];
+    }
 
     public function showRegistrationForm()
     {
         $toko = toko::whereStatus(1)->first();
         $provinsi = provinsi::where('name', 'LIKE', '%' . request('q') . '%')->get();
-        $kota = kota::where('name', 'LIKE', '%' . request('q') . '%')->get();
-        $kecamatan = kecamatan::where('name', 'LIKE', '%' . request('q') . '%')->get();
+
+
         $title = "Daftar member baru";
         $jenis = jenis_member::all();
-        return view('customauth.register', compact('title', 'toko', 'jenis', 'provinsi', 'kota', 'kecamatan'));
+        return view('customauth.register', compact('title', 'toko', 'jenis', 'provinsi'));
     }
 }
