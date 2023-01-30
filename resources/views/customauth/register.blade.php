@@ -120,9 +120,9 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="kode_agen" class="col-md-12 col-form-label">Kode Agen</label>
+                    <label for="kode_agen" class="col-md-12 col-form-label">Reff ID</label>
                     <div class="col-md-12">
-                        <input type="text" name="kode_agen" class="form-control" required autofocus>
+                        <input type="text" name="kode_agen" class="form-control">
                     </div>
                 </div>
 
