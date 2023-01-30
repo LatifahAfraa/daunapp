@@ -11,7 +11,6 @@ use App\kecamatan;
 use App\jenis_member;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -114,8 +113,7 @@ class RegisterController extends Controller
     public function kecamatan()
     {
         $kecamatan = kecamatan::where('regency_id', request('id_kota'))->where('name', 'LIKE', '%' . request('q') . '%')->get();
-        // $kecamatan = DB::table('districts')->where('regency_id', request('id_kota'))->where('name', 'LIKE', '%' . request('q') . '%')->get();
-        return $kecamatan;
+
         return ["results" => $kecamatan->map(function($ke){
             return [
                 'id' => $ke->id,
