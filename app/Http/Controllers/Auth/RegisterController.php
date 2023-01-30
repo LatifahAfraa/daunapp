@@ -81,7 +81,6 @@ class RegisterController extends Controller
     {
         $id = toko::whereStatus(1)->first();
 
-
         return member::create([
             'nohp' => $data['nohp'],
             'nama' => $data['nama'],

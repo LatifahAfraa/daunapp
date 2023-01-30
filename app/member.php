@@ -21,8 +21,8 @@ class member extends Authenticatable
     protected $fillable = [
         'nohp',
         'nama',
-        'password','
-        id_toko',
+        'password',
+        'id_toko',
         'id_jenis',
         'nama_warung',
         'id_provinsi',
