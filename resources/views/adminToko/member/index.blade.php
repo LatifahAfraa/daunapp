@@ -20,7 +20,13 @@
 									<th>Terdaftar</th>
 									<th>Nomor Handphone</th>
 									<th>Nama</th>
+                                    <th>Nama Warung</th>
+                                    <th>Jenis Warung</th>
 									<th>Alamat</th>
+                                    <th>Reff ID</th>
+                                    <th>Provinsi</th>
+                                    <th>Kota</th>
+                                    <th>Kecamatan</th>
 									<th>Total Pesanan</th>
 									<th>Terakhir Pesan</th>
 									<th></th>
@@ -32,7 +38,13 @@
 									<td>{{ $item->created_at }}</td>
 									<td>{{ $item->nohp }}</td>
 									<td>{{ $item->nama }}</td>
+									<td>{{ $item->nama_warung }}</td>
+                                    <td>{{ $item->jenis->nama_jenis ?? "" }}</td>
 									<td>{{ $item->alamat }}</td>
+                                    <td>{{ $item->kode_agen }}</td>
+                                    <td>{{ $item->provinsi->name ?? "" }}</td>
+                                    <td>{{ $item->kota->name ?? "" }}</td>
+                                    <td>{{ $item->kecamatan->name ?? "" }}</td>
 									<td class="text-right">{{ $item->jumlahOrder  }}</td>
 									<td><?php echo $item->lastOrder?$item->lastOrder:'Belum order'; ?></td>
 									<td>
