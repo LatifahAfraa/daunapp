@@ -21,27 +21,10 @@ class MemberkuController extends Controller
     	$title = "Modul Member :: Administrator";
         $toko = Auth::guard('toko')->id();
 
-    	$member = member::where('id_toko', $toko)->orderBy('created_at','desc')->get();
-        // $member = \DB::table('otw_member')->select('otw_member.*',\DB::raw("SELECT count(*) FROM otw_order WHERE otw_order.id_member=otw_member.id_member) as jumlahOrder"), 'otw_jenis.nama_jenis', 'provinces.name AS nama_provinsi', 'regencies.name AS nama_kota', 'districts.name AS nama_kecamatan')
-
-        // ->join('otw_jenis', 'otw_jenis.id_jenis', '=', 'otw_member.id_jenis' )
-        // ->join('provinces', 'provinces.id', '=', 'otw_member.id_provinsi')
-        // ->join('regencies', 'regencies.id', '=', 'otw_member.id_kota')
-        // ->join('districts', 'districts.id', '=', 'otw_member.id_kecamatan')
-
-        // ->where('otw_member.id_toko',$toko)->orderBy('jumlahOrder','desc')->orderBy('lastOrder', 'desc')->groupBy('otw_member.id_member')->get();
-
-        // $member = member::where('id_toko', $toko)->
-
+    	// $member = member::where('id_toko', $toko)->orderBy('created_at','desc')->get();
+        $member = member::select('otw_member.*',\DB::raw('count(otw_order.id_order) jumlahOrder, otw_order.created_at lastOrder'))->leftJoin('otw_order','otw_order.id_member','=','otw_member.id_member')->where('otw_member.id_toko',$toko)->orderBy('jumlahOrder','desc')->orderBy('lastOrder', 'desc')->groupBy('otw_member.id_member')->get();
         // $order = order::where('id_toko', $toko)->get();
-        // $s=\DB::table('otw_member')
-        // ->select('otw_member.*', 'otw_jenis.nama_jenis', 'provinces.name AS nama_provinsi', 'regencies.name AS nama_kota', 'districts.name AS nama_kecamatan', \DB::raw('count(otw_order.id_order) jumlahOrder, otw_order.created_at lastOrder'))
-        // ->leftJoin('otw_order','otw_order.id_member','=','otw_member.id_member')
-        // ->join('otw_jenis', 'otw_jenis.id_jenis', '=', 'otw_member.id_jenis' )
-        // ->join('provinces', 'provinces.id', '=', 'otw_member.id_provinsi')
-        // ->join('regencies', 'regencies.id', '=', 'otw_member.id_kota')
-        // ->join('districts', 'districts.id', '=', 'otw_member.id_kecamatan')
-        // ->get();
+
         $datatable = true;
     	return view('adminToko/'.$this->folder.__FUNCTION__,compact('title','member','datatable'));
     }
